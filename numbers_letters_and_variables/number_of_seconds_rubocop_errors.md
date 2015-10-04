@@ -3,8 +3,11 @@
 At first, I was getting 4 offenses for having lines of code that were too long.
 This was partly due to having my interpolated string include a lot of multiplication
 between variables. I fixed the issue by creating new variables that did the math
-before adding them to interpolated strings, and also limiting the code column width
-to 62 characters.
+before adding them to interpolated strings.
+
+I also added two strings together for the last two `puts` commands in order to
+cut down the column length of the code without having to combine a `print` and
+a `puts` command.
 
 ```
 learning_by_doing (104778992_number_of_seconds_master) $guard
