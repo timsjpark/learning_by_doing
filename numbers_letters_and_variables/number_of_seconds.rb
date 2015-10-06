@@ -19,5 +19,5 @@ puts "  #{seconds_per_day} seconds in a day,"
 puts "  #{seconds_per_day * days_per_week} seconds in a week"
 print "That means when you turn 20, you've been alive for "
 puts "#{20 * seconds_per_year} seconds,"
-print "and if you make it to 100, you will have lived "
+print 'and if you make it to 100, you will have lived '
 puts "#{100 * seconds_per_year} seconds. Make them count!"
