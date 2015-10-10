@@ -1,15 +1,19 @@
 #!/usr/bin/env ruby
 
-numbers = (1..100).to_a
+numbers = []
 
-numbers.each do |item|
-  if item % 3 == 0 && item % 5 == 0
+(1..100).each do |add_num|
+  numbers.push(add_num)
+end
+
+numbers.each do |number|
+  if number % 3 == 0 && number % 5 == 0
     puts 'FizzBuzz'
-  elsif item % 3 == 0
+  elsif number % 3 == 0
     puts 'Fizz'
-  elsif item % 5 == 0
+  elsif number % 5 == 0
     puts 'Buzz'
   else
-    puts item
+    puts number
   end
 end
