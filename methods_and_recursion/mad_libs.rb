@@ -22,7 +22,8 @@ body = 'a part of the body'
 place = 'a place'
 number = 'a number'
 
-puts "Here is your madlib:
+puts <<-EOT.sub(/\n$/, '')
+Here is your madlib:
 A vacation is when you take a trip to some #{get_word(adj)} place
 with your #{get_word(adj2)} family. Usually you go to some place
 that is near a/an #{get_word(noun)} or up on a/an #{get_word(noun2)}.
@@ -39,4 +40,4 @@ need vacations more than kids because parents are always very
 #{get_word(adj2)} and because they have to work #{get_word(number)}
 hours every day all year making enough #{get_word(plu_noun2)} to pay
 for the vacation.
-"
+EOT
