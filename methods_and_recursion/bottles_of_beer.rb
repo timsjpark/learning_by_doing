@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# WARNING! - LineLength cop disabled for this program to account
+# WARNING! - for long strings in lines 20, 22, 24, 36, and 38.
+# rubocop:disable Metrics/LineLength
+
 # Create method to automatically add spacing between lines
 
 def spacing(first, second, option = true)
