@@ -1,12 +1,6 @@
 #!/usr/bin/env ruby
 
-numbers = []
-
-(1..100).each do |add_num|
-  numbers.push(add_num)
-end
-
-numbers.each do |number|
+(1..100).each do |number|
   if number % 3 == 0 && number % 5 == 0
     puts 'FizzBuzz'
   elsif number % 3 == 0
