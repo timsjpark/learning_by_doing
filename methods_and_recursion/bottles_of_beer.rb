@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # WARNING! - LineLength cop disabled for this program to account
-# WARNING! - for long strings in lines 20, 22, 24, 36, and 38.
+# WARNING! - for long strings in line 32.
 # rubocop:disable Metrics/LineLength
 
 # Create method to automatically add spacing between lines
@@ -13,29 +13,47 @@ def spacing(first, second, option = true)
   puts '' if option == true
 end
 
-# Create method for normal song output. If number of bottles > 2, modify
-# second part of the verse.
+# Method to print out first part of each verse. Prints out 'bottle'
+# when the number of bottles is 1. If number argument is a string,
+# like 'no more' at the end of the song, pluralize_first will
+# capitalize the first iteration of the string.
+
+def pluralize_first(number, bottle = 'bottles')
+  bottle = 'bottle' if number == 1
+  written_number = number
+  "#{written_number.to_s.capitalize} #{bottle} of beer on the wall, " \
+  "#{written_number} #{bottle} of beer."
+end
+
+# Method to print out second part of verse. Prints out 'bottle' if
+# the verse refers to 1 bottle left (number == 2) and 'no more bottles'
+# when there are no bottles left (number == 1). Also, it prints out a
+# special line at the very end of the song.
+
+def pluralize_second(number, bottle = 'bottles', remaining = number - 1)
+  bottle = 'bottle' if number == 2
+  remaining = 'no more' if number == 1
+  if number == 0
+    'Go to the store and buy some more, 99 bottles of beer on the wall.'
+  else
+    "Take one down and pass it around, #{remaining} #{bottle} of beer on the wall."
+  end
+end
+
+# Method for normal song output
 
 def normal_song_verse(number)
-  first_part = "#{number} bottles of beer on the wall, #{number} bottles of beer."
-  if number > 2
-    second_part = "Take one down and pass it around, #{number - 1} bottles of beer on the wall."
-  else
-    second_part = 'Take one down and pass it around, 1 bottle of beer on the wall.'
-  end
-  spacing(first_part,
-          second_part)
+  spacing(pluralize_first(number),
+          pluralize_second(number))
 end
 
 # Print out song output normally and recursively execute method until
-# number == 1. Then print out special end of song output and EXIT.
+# number == 0. Then print out special end of song output and EXIT.
 
 def beer_song(number = 99)
-  if number == 1
-    spacing('1 bottle of beer on the wall, 1 bottle of beer.',
-            'Take one down and pass it around, no more bottles of beer on the wall.')
-    spacing('No more bottles of beer on the wall, no more bottles of beer.',
-            'Go to the store and buy some more, 99 bottles of beer on the wall.',
+  if number == 0
+    spacing(pluralize_first('no more'),
+            pluralize_second(number),
             false)
     exit
   end
