@@ -4,7 +4,7 @@
 # real cash register such as pay, purchase, and total.
 class CashRegister
   def initialize
-    @total = 0
+    @total = 0.0
   end
 
   # Adds cost to instance variable @total
@@ -31,7 +31,7 @@ class CashRegister
     else
       change = tender - @total
       puts "Your change is $#{currency(change)}."
-      @total = 0
+      @total = 0.0
     end
   end
 
@@ -39,7 +39,10 @@ class CashRegister
   # decimal point so the number appears like currency.
 
   def currency(number)
-    currency = number.to_f.round(2)
+
+    # Round all floats to 2 decimal points
+
+    currency = number.round(2)
 
     # Turn currency into a string and split at the decimal point
 
