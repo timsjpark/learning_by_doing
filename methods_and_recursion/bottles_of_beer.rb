@@ -9,58 +9,36 @@ def spacing(first, second, option = true)
   puts '' if option == true
 end
 
-# This method prints out the normal second_verse. It accounts for the
-# special verse when number == 1  and print 'no more bottles' instead
-# of '0 bottles'. At the very end of the song when number == 'no more',
-# it prints a special end verse.
+# Modify certain parts of the song lyrics depending on special cases. For
+# example, the lyrics should read '1 bottle' and not '1 bottles'. At the
+# end of the song, print a special second verse instead of the normal one.
 
-# Disable Rubocop for this method to account for long string on line 23
-# rubocop:disable Metrics/LineLength
-def second_verse(number, bottle_2)
-  if number == 'no more'
-    'Go to the store and buy some more, 99 bottles of beer on the wall.'
-  else
-    if number > 1
-      remaining = number - 1
-    else
-      remaining = 'no more' if number == 1
-    end
-    "Take one down and pass it around, #{remaining} #{bottle_2} of beer on the wall."
-  end
-end
-# rubocop:enable Metrics/LineLength
-
-# This method passes true to the option argument in the spacing method
-# except for at the end of the song (number == 'no more')
-
-def option(number)
-  if number == 'no more'
-    false
-  else
-    true
-  end
+def modify(string)
+  string.sub!(/^1 bottles/, '1 bottle')
+  string.sub!(/, 1 bottles/, ', 1 bottle')
+  string.sub!(/^0/, 'No more')
+  string.sub!(/, 0/, ', no more')
+  # Disable LineLength cop momentarily
+  # rubocop:disable Metrics/LineLength
+  string.sub!(/.*-1.*/, 'Go to the store and buy some more, 99 bottles of beer on the wall.')
+  # rubocop:enable Metrics/LineLength
+  string
 end
 
-# The print_lyrics method outputs one set of verses from the song,
-# '99 bottles of beer'. Given a number, it will print out the song
-# lyrics and account for writing 'bottle' in singular form when
-# the song refers to just 1 bottle.
-#
-# It also accounts for the case  of 0 bottles, and prints out 'no more'
-# instead of the number. Pay attention that number is re-assigned the
-# value 'no more' when the 'number' argument == 0. As such, the
-# second_verse and option methods evaluate if number == 'no more' and
-# not if number == 0
+# Print the proper song lyrics based on the number of bottles
 
-def print_lyrics(number, bottle_1 = bottle_2 = 'bottles')
-  bottle_2 = 'bottle' if number == 2
-  bottle_1 = 'bottle' if number == 1
-  number = 'no more' if number == 0 # number variable is re-assigned
-  first = "#{number.to_s.capitalize} #{bottle_1} of beer on the wall, " \
-          "#{number} #{bottle_1} of beer."
-  second = second_verse(number, bottle_2)
-  option = option(number)
-  spacing(first, second, option)
+def print_lyrics(number)
+  first = "#{number} bottles of beer on the wall, #{number} bottles of beer."
+  # Disable LineLength cop momentarily
+  # rubocop:disable Metrics/LineLength
+  second = "Take one down and pass it around, #{number - 1} bottles of beer on the wall."
+  # rubocop:enable Metrics/LineLength
+  if number == 0
+    option = false
+  else
+    option = true
+  end
+  spacing(modify(first), modify(second), option)
 end
 
 # Print out song lyrics recursively and exit when number == 0
