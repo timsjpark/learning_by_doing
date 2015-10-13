@@ -14,8 +14,6 @@ end
 # end of the song, print a special second verse instead of the normal one.
 
 def modify(string)
-  string.sub!(/^1 bottles/, '1 bottle')
-  string.sub!(/, 1 bottles/, ', 1 bottle')
   string.sub!(/^0/, 'No more')
   string.sub!(/, 0/, ', no more')
   # Disable LineLength cop momentarily
@@ -25,20 +23,27 @@ def modify(string)
   string
 end
 
+def pluralize(number, verse)
+  bottle = 'bottles'
+  if number == 2 && verse == 2
+    bottle = 'bottle'
+  elsif number == 1 && verse == 1
+    bottle = 'bottle'
+  end
+  bottle
+end
+
 # Print the proper song lyrics based on the number of bottles
 
 def print_lyrics(number)
-  first = "#{number} bottles of beer on the wall, #{number} bottles of beer."
+  puts first = modify("#{number} #{pluralize(number, 1)} of beer on the wall, #{number} #{pluralize(number, 1)} of beer.")
+  puts ''
   # Disable LineLength cop momentarily
   # rubocop:disable Metrics/LineLength
-  second = "Take one down and pass it around, #{number - 1} bottles of beer on the wall."
+  puts second = modify("Take one down and pass it around, #{number - 1} #{pluralize(number, 2)} of beer on the wall.")
   # rubocop:enable Metrics/LineLength
-  if number == 0
-    option = false
-  else
-    option = true
-  end
-  spacing(modify(first), modify(second), option)
+  exit if number == 0
+  puts ''
 end
 
 # Print out song lyrics recursively and exit when number == 0
