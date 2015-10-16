@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require_relative 'my_object_auxiliary_methods'
 
 # BAKE ALL THE THINGS!!!
