@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # CashRegister is a class that can take certain methods like a
 # real cash register such as pay, purchase, and total.
 class CashRegister
@@ -39,7 +37,6 @@ class CashRegister
   # decimal point so the number appears like currency.
 
   def currency(number)
-
     # Round all floats to 2 decimal points
 
     currency = number.round(2)
