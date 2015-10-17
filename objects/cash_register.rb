@@ -24,8 +24,8 @@ class CashRegister
   def pay(tender)
     total_left = @total - tender
     if total_left > 0
-      puts "Your new total is $#{currency(total_left)}."
       @total -= tender
+      puts "Your new total is $#{currency(@total)}."
     else
       change = tender - @total
       puts "Your change is $#{currency(change)}."
