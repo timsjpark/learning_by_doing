@@ -5,7 +5,7 @@ class CashRegister
   end
 
   def total
-    "$#{sprintf('%.2f',@total)}"
+    "#{currency(@total)}"
   end
 
   def purchase(amount)
@@ -14,7 +14,17 @@ class CashRegister
   end
 
   def pay(amount)
-    @total -= amount
-    @total = @total.round(2)
+    if @total - amount <= 0.0
+      change = amount - @total
+      @total = 0.0
+      return "Your change is #{currency(change)}"
+    else
+      @total -= amount
+      return "You still owe #{currency(@total)}"
+    end
+  end
+
+  def currency(number)
+    "$#{format('%.2f', number)}"
   end
 end
