@@ -30,10 +30,18 @@ describe CashRegister do
   end
 
   describe '#pay' do
-    it 'should subtract a specified amount from the total' do
-      register = CashRegister.new
-      register.purchase(2.18)
-      expect(register.pay(1.17)).to eq(1.01)
+    context 'should subtract a specified amount from the total and' do
+      it 'should return a string if there is payment left to be made' do
+        register = CashRegister.new
+        register.purchase(2.18)
+        expect(register.pay(1.17)).to eq('You still owe $1.01')
+      end
+
+      it 'should return a string if the total has been fully paid' do
+        register = CashRegister.new
+        register.purchase(2.18)
+        expect(register.pay(3)).to eq('Your change is $0.82')
+      end
     end
 
     it 'should modify the total to reflect the payment' do
