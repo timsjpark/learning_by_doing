@@ -5,7 +5,7 @@ class CashRegister
   end
 
   def total
-    "#{currency(@total)}"
+    currency(@total)
   end
 
   def purchase(amount)
@@ -14,13 +14,16 @@ class CashRegister
   end
 
   def pay(amount)
-    if @total - amount <= 0.0
+    if @total - amount < 0.0
       change = amount - @total
       @total = 0.0
-      return "Your change is #{currency(change)}"
+      "Your change is #{currency(change)}."
+    elsif @total - amount == 0.0
+      @total = 0.0
+      'Thank you for paying the exact amount. There is no change.'
     else
       @total -= amount
-      return "You still owe #{currency(@total)}"
+      "You still owe #{currency(@total)}."
     end
   end
 
