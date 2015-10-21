@@ -13,6 +13,7 @@ class CashRegister
     @total = @total.round(2)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def pay(amount)
     if @total - amount < 0.0
       change = amount - @total
@@ -26,6 +27,7 @@ class CashRegister
       "You still owe #{currency(@total)}."
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def currency(number)
     "$#{format('%.2f', number)}"
