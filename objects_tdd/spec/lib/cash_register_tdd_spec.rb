@@ -42,7 +42,9 @@ describe CashRegister do
       end
       it 'should return a string that thanks you for paying the exact total' do
         subject.purchase(2.18)
+        # rubocop:disable Metrics/LineLength
         expect(subject.pay(2.18)).to eq('Thank you for paying the exact amount. There is no change.')
+        # rubocop:enable Metrics/LineLength
       end
     end
 
