@@ -1,6 +1,7 @@
 class Reservation
   REQUIRED_STOPS = 2
   DOLLAR_AMOUNT_PER_STOP = 50
+  REDUCED_FARE_PER_STOP = 40
 
   def initialize(quoted_stops: quoted_stops, stops: [])
     @quoted_stops = quoted_stops
@@ -15,7 +16,12 @@ class Reservation
     if insufficient_quoted_stops?
       raise InsufficientQuoteStopsError
     end
-    @quoted_stops.length * DOLLAR_AMOUNT_PER_STOP
+    if @quoted_stops.length < 5
+      @quoted_stops.length * DOLLAR_AMOUNT_PER_STOP
+    else
+      @quoted_stops.length * REDUCED_FARE_PER_STOP
+
+    end
   end
 
   private
