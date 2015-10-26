@@ -51,5 +51,11 @@ describe Reservation do
       end
     end
 
+    context "with five stops" do
+      let(:quoted_stops) { ['DIA', 'McDonalds', 'Patagonia', 'Movement', 'Pivotal Labs'] }
+      it "should be 200$" do
+        expect(subject.quoted_cost).to eq(200)
+      end
+    end
   end
 end
