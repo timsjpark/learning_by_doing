@@ -1,11 +1,11 @@
 class Reservation
+  attr_reader :rate
   REQUIRED_STOPS = 2
-  DOLLAR_AMOUNT_PER_STOP = 50
-  REDUCED_FARE_PER_STOP = 40
 
   def initialize(quoted_stops: quoted_stops, stops: [])
     @quoted_stops = quoted_stops
     @stops = stops
+    define_rate
   end
 
   def recalculate_quote?
@@ -16,12 +16,13 @@ class Reservation
     if insufficient_quoted_stops?
       raise InsufficientQuoteStopsError
     end
-    if @quoted_stops.length < 5
-      @quoted_stops.length * DOLLAR_AMOUNT_PER_STOP
-    else
-      @quoted_stops.length * REDUCED_FARE_PER_STOP
+    @quoted_stops.length * @rate
+  end
 
-    end
+  def define_rate
+    @rate = 50 if @quoted_stops.length <= 3
+    @rate = 70 if @quoted_stops.length <= 5 && @quoted_stops.length >= 4
+    @rate = 100 if @quoted_stops.length >= 6
   end
 
   private
