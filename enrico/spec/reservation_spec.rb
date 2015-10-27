@@ -33,28 +33,44 @@ describe Reservation do
       let(:quoted_stops) { ['DIA'] }
       it "should raise a Reservation::InsufficientQuoteStops" do
         expect { subject.quoted_cost }.to raise_error(Reservation::InsufficientQuoteStopsError,
-                                                      "You must have at least two stops!")
+            "You must have at least two stops!")
       end
     end
 
-    context "with two stops" do
+    context "for 2-3 stops" do
       let(:quoted_stops) { ['DIA', 'Pivotal Labs'] }
-      it "should be 100$" do
-        expect(subject.quoted_cost).to eq(100)
+      it 'the rate should be $50 per stop' do
+        expect(subject.rate).to eq(50)
+      end
+      context 'for 2 stops' do
+        it "should be 100$" do
+          expect(subject.quoted_cost).to eq(100)
+        end
       end
     end
 
-    context "with three stops" do
-      let(:quoted_stops) { ['DIA', 'McDonalds','Pivotal Labs'] }
-      it "should be 150$" do
-        expect(subject.quoted_cost).to eq(150)
+
+    context 'for 4-5 stops' do
+      let(:quoted_stops) { ['DIA', 'McDonalds', 'Patagonia', 'Pivotal Labs'] }
+      it 'the rate should be $70 per stop' do
+        expect(subject.rate).to eq(70)
+      end
+      context 'for 4 stops' do
+        it 'should be 280$' do
+          expect(subject.quoted_cost).to eq(280)
+        end
       end
     end
 
-    context "with five stops" do
-      let(:quoted_stops) { ['DIA', 'McDonalds', 'Patagonia', 'Movement', 'Pivotal Labs'] }
-      it "should be 200$" do
-        expect(subject.quoted_cost).to eq(200)
+    context 'for 6 or more stops' do
+      let(:quoted_stops) { ['DIA', 'McDonalds', 'Patagonia', 'Movement', 'Zeal', 'Pivotal Labs'] }
+      it 'the rate should be $100 per stop' do
+        expect(subject.rate).to eq(100)
+      end
+      context 'for 6 stops' do
+        it 'should be 600$' do
+          expect(subject.quoted_cost).to eq(600)
+        end
       end
     end
   end
